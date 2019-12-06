@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author lijx
  * @date 2019/12/3 - 10:59
- * 自定义的拦截器，拉进去的配置参见WebMvcConfigration
+ * 自定义的拦截器，拦截器的配置参见WebMvcConfigration
  *
  */
 @Component
@@ -32,7 +32,7 @@ public class MyInterceptor implements HandlerInterceptor{
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("后置置方法正在执行");
+        System.out.println("后置方法正在执行");
     }
 
     @Override
