@@ -5,5 +5,12 @@ spring:
     url: jdbc:mysql:///mybatis
     username: root
     password: 123456
+  application:
+    name: service-provider #微服务工程需指定微服务名称
 mybatis:
   type-aliases-package: com.ljx.microservice.serviceprovider.pojo
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka #还需配置eureka server的地址

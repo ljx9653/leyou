@@ -1,11 +1,14 @@
 server:
   port: 8888
-#\u5FAE\u670D\u52A1\u5DE5\u7A0B\u4E00\u822C\u90FD\u8981\u914D\u7F6E\u4E00\u4E2A\u552F\u4E00\u7684\u5E94\u7528\u540D\uFF0C\u5C06\u6765\u4F5C\u4E3A\u5FAE\u670D\u52A1\u540D\u79F0\u6CE8\u5165\u5230eureka\u5BB9\u5668
+#微服务工程一般都要配置一个唯一的应用名，将来作为微服务名称注入到eureka容器
 spring:
   application:
     name: eureka-regist-center
-#\u6CE8\u518C\u4E2D\u5FC3\u7684url\u914D\u7F6E\uFF0C\u53EF\u53C2\u8003\u6E90\u7801\u8FDB\u884C\u914D\u7F6E
+#注册中心的url配置，可参考源码进行配置
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:${server.port}/eureka
+      defaultZone: http://localhost:${server.port}/eureka #如果要搭建eureka集群，那么这里的url要配置另一个eureka的地址，每个eureka都这样配置，从而形成集群。配置好集群之后，如果之前所有的微服务都是注册到8888的eureka上，而8888挂掉，微服务之间仍能正常通信，因为集群中其他实例完成了续约等操作
+  instance:
+      lease-expiration-duration-in-seconds: 10 # 服务续约机制的过期时间，默认为90秒，即90之后还未检测到心跳，则服务过期，从服务列表移除，此处在开发阶段建议调小
+      lease-renewal-interval-in-seconds: 5 # 服务续约机制的间隔时间，默认为30秒，即30秒检测一次所有服务是否还在，此处在开发阶段建议减小时间
