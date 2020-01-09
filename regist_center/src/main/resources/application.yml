@@ -12,3 +12,6 @@ eureka:
   instance:
       lease-expiration-duration-in-seconds: 10 # 服务续约机制的过期时间，默认为90秒，即90之后还未检测到心跳，则服务过期，从服务列表移除，此处在开发阶段建议调小
       lease-renewal-interval-in-seconds: 5 # 服务续约机制的间隔时间，默认为30秒，即30秒检测一次所有服务是否还在，此处在开发阶段建议减小时间
+  server:
+    eviction-interval-timer-in-ms: 10000 #eureka通过一个定时任务，每隔指定的时间（默认60*1000ms）对所有失效的服务（超过指定时间未响应）进行剔除。
+    enable-self-preservation: false # 自我保护模式（默认为打开），开发阶段建议关闭，这样能被停掉和重启的服务的信息能及时更新

@@ -9,3 +9,4 @@ eureka:
     service-url:
       defaultZone: http://localhost:8888/eureka #配置eureka server的地址
     register-with-eureka: true #服务提供方启动时，会检测该参数是否为true，true-注册给eureka，模式为true，因此可以不写
+    registry-fetch-interval-seconds: 5 #默认每隔30秒会拉取Eureka Server服务列表的只读备份，然后缓存在本地，开发时可以调小
