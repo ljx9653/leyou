@@ -36,8 +36,11 @@ public class UserController {
         //通过服务名获取服务实例，由于微服务可能是一个集群，因此返回一个list
         List<ServiceInstance> instances = discoveryClient.getInstances("service-provider");
         //我们只有一个实例因此使用0,这样我们就能获得服务实例的信息，如ip、端口等
-        ServiceInstance providerserviceInstance = instances.get(0);
-        User user = this.restTemplate.getForObject("http://"+providerserviceInstance.getHost()+":"+providerserviceInstance.getPort()+"/user/" + id, User.class);
+        /*ServiceInstance providerserviceInstance = instances.get(0);
+        User user = this.restTemplate.getForObject("http://"+providerserviceInstance.getHost()+":"+providerserviceInstance.getPort()+"/user/" + id, User.class);*/
+        //不再使用上面那种通过拼接url的方式，而是用服务名代替原来的ip和port，ribbon会自动解析服务名，并找到合适的服务实例进行调用
+        String baseUrl = "http://service-provider/user/" + id;
+        User user = this.restTemplate.getForObject(baseUrl, User.class);
         return user;
     }
 }
