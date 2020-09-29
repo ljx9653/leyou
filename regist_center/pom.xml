@@ -38,6 +38,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+        <!--可实现热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
 	</dependencies>
 
     <!--统一管理spring cloud依赖的版本号-->

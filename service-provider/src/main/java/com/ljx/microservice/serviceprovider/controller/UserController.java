@@ -22,7 +22,7 @@ public class UserController {
 
     //这里使用{}代表id是一个变量
     @GetMapping("{id}")
-    //@PathVariable用于接收请求url中的参数，而@RequestParam用于接收请求报文的requestbody中的参数
+    //@PathVariable用于接收请求url中的参数，而@RequestParam用于接收请求报文的requestParam中的参数
     public User queryUserById(@PathVariable("id")long id){
         return this.userService.queryUserById(id);
     }
