@@ -1,6 +1,6 @@
 
 server:
-  port: 80
+  port: 8000
 spring:
   application:
     name: service-comsumer #配置微服务名称
@@ -16,3 +16,10 @@ eureka:
 service-provider:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #如果是自定义的策略，我们就写上自己的包名和类名，此处使用的是随机策略
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000 # 设置hystrix的超时时间为6000ms
