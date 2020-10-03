@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: service-comsumer #配置微服务名称
+  devtools:
+    restart:
+      enabled: false #关闭自动热部署，防止与feign不兼容的问题，此项配置以spring开头，不能独立写出来，否则会报错
 eureka:
   client:
     service-url:
@@ -23,3 +26,9 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 6000 # 设置hystrix的超时时间为6000ms
+feign:
+  hystrix:
+    enabled: true # 开启Feign的熔断功能
+logging:
+  level:
+    com.ljx: debug # 要想自定义feign的日志级别，需要先定义全局的日志级别
