@@ -3,7 +3,7 @@ server:
   port: 8000
 spring:
   application:
-    name: service-comsumer #配置微服务名称
+    name: service-consumer #配置微服务名称
   devtools:
     restart:
       enabled: false #关闭自动热部署，防止与feign不兼容的问题，此项配置以spring开头，不能独立写出来，否则会报错
