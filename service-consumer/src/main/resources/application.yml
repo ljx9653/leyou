@@ -1,0 +1,34 @@
+
+server:
+  port: 8000
+spring:
+  application:
+    name: service-consumer #配置微服务名称
+  devtools:
+    restart:
+      enabled: false #关闭自动热部署，防止与feign不兼容的问题，此项配置以spring开头，不能独立写出来，否则会报错
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka #配置eureka server的地址
+    register-with-eureka: true #服务提供方启动时，会检测该参数是否为true，true-注册给eureka，模式为true，因此可以不写
+    registry-fetch-interval-seconds: 5 #默认每隔30秒会拉取Eureka Server服务列表的只读备份，然后缓存在本地，开发时可以调小
+
+#ribbon无需配置也可使用，默认使用的是轮询策略，如果我们想要修改默认的策略，可以使用如下配置：
+#格式为：{服务名称}.ribbon.NFLoadBalancerRuleClassName，值就是IRule的实现类
+service-provider:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #如果是自定义的策略，我们就写上自己的包名和类名，此处使用的是随机策略
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000 # 设置hystrix的超时时间为6000ms
+feign:
+  hystrix:
+    enabled: true # 开启Feign的熔断功能
+logging:
+  level:
+    com.ljx: debug # 要想自定义feign的日志级别，需要先定义全局的日志级别

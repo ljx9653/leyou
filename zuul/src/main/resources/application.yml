@@ -1,0 +1,33 @@
+server:
+  port: 7777
+spring:
+  application:
+    name: service-zuul
+# 方式一：通过url路由，这种方式未使用eureka
+#zuul:
+#  routes:
+#    service-provider: # 这里是路由id，随意写，一般习惯使用服务名
+#      path: /provider-path/** # 这里是代理路径，符合path规则的一切请求，都将代理到url参数指定的地址
+#      url: http://localhost:8001 # 代理路径对应的后端服务的url地址
+
+# 方式二：通过微服务名来路由，这种方式要使用到eureka
+#zuul:
+#  routes:
+#    service-provider: # 这里是路由id，随意写，一般习惯使用服务名
+#      path: /provider-path/** # 这里是代理路径，符合path规则的一切请求，都将代理到url参数指定的地址
+#      serviceId: service-provider # 指定微服务名称
+
+#方式三：方式二的简化版，直接指定服务名和代理路径
+zuul:
+  routes:
+    service-provider: /provider/** #大多数情况下路由id和服务名是一样的，因此我们可以省略掉serviceId，直接写微服务名及对应的映射路径
+    service-consumer: /consumer/**
+  prefix: /api # 添加路由前缀，即调用地址变为ip:port/${prefix}}/${route-path}/restpath，这是为了让zuul调用的api和服务内部调用的api有所区分，官方推荐prefix的值就是api
+
+#方式四：不用写zuul的配置，直接通过 ip:port/${spring.application.name}/restpath 来访问
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka #配置eureka server的地址
