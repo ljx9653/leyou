@@ -1,2 +1,3 @@
-# leyou
-乐优商城
+# leyou-microservice
+乐优商城-微服务篇
+springboot&springcloud
